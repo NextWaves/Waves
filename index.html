@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title id="blog_title"></title>
+		<!--<link rel='stylesheet' id="stylesheet" href="[DOMAIN]/blog.css" type='text/css' media='all' />
+		<script id="jquery" src="[DOMAIN]/jquery.js"></script>-->
+	</head>
+	<body>
+		<center>
+		<div class="loading" id="spinner"></div>
+		</center>
+		<div id="all_content" style="display:none">
+			<header>
+				<div class="header"> 
+					<div class="innerHeader">
+						<img id="logo" src="xttp://frameworks.meshedsites.com/logo.png"/> <div id="header_title"></div> 
+					</div>
+				</div>
+			</header>
+			<div class="wrapper">
+
+				<div class="sidebar">
+					<div class="sideWidget">
+						<h2>Contact Me</h2>
+						<a href="" id="contact"></a>
+					</div>
+					<div class="spacer"></div>
+					<div class="sideWidget">
+						<h2>Archive</h2>
+						<div id="archive"></div>
+					</div>
+					<div class="spacer"></div>
+				</div>
+
+
+				<div class="content">
+					<div id="content_area">
+						<div id="content_date"></div>
+						<div id="content_title"></div>
+						<div id="content_text"></div>
+					</div>
+				</div>
+
+
+			</div>
+			<footer></footer>
+		</div>
+		<div id="scripts"></div>
+		<script>
+			//Common settings for the blog
+			var title="Waves Blog";
+			var header_title="Waves Blog";
+			var contact="bluewires@riseup.net";
+			var domain="xttp://frameworks.meshedsites.com"
+
+
+
+
+
+			//Do not edit any of this javascript unless you know what your doing.
+			append('head', '<link rel="stylesheet" type="text/css" href="'+domain+'/blog.css">');
+			//thanks to jQuery4u for the following code:
+			// http://www.jquery4u.com/javascript/dynamically-load-jquery-library-javascript/
+			(function () {
+
+			    function loadScript(url, callback) {
+
+			        var script = document.createElement("script")
+			        script.type = "text/javascript";
+
+			        if (script.readyState) { //IE
+			            script.onreadystatechange = function () {
+			                if (script.readyState == "loaded" || script.readyState == "complete") {
+			                    script.onreadystatechange = null;
+			                    callback();
+			                }
+			            };
+			        } else { //Others
+			            script.onload = function () {
+			                callback();
+			            };
+			        }
+
+			        script.src = url;
+			        document.getElementsByTagName("head")[0].appendChild(script);
+			    }
+
+			    loadScript(domain+"/jquery.js", function () {
+
+			         //jQuery loaded
+			        console.log('jquery loaded');
+			        var fileref=document.createElement('script');
+		  			fileref.setAttribute("type","text/javascript");
+		  			fileref.setAttribute("src", domain+"/database.js");
+		  			document.getElementById("scripts").appendChild(fileref);
+
+		  			var fileref=document.createElement('script');
+		  			fileref.setAttribute("type","text/javascript");
+		  			fileref.setAttribute("src", domain+"/blog.js");
+		  			document.getElementById("scripts").appendChild(fileref);
+		  			$("#spinner").hide();
+		  			$("#all_content").show();
+
+			    });
+
+			})();
+			function append(tag, tag_data){
+				var element = document.getElementsByTagName(tag)[0];
+				element.innerHTML+=tag_data;
+			}
+
+		</script>
+		
+		<!--<script id="database" src="[DOMAIN]/database.js"></script>
+		<script id="blogjs" src="[DOMAIN]/blog.js"></script>-->
+
+	</body>
+</html>

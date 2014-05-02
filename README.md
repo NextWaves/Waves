@@ -28,9 +28,15 @@ The data is in the Cloud but its YOUR cloud.
 More information can be found below:
 
 https://www.meshedsites.com
+
 https://github.com/Nextwaves/waves
+
 https://www.meshedsites.com/waves
 
+
+
 Once you have the XTTP Plugin Installed you can navigate to:
+
 xttp://www.meshedsites.com
+
 xttp://waves.my.blog

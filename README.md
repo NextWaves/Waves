@@ -37,6 +37,6 @@ https://www.meshedsites.com/waves
 
 Once you have the XTTP Plugin Installed you can navigate to:
 
-xttp://www.meshedsites.com
+[xttp://www.meshedsites.com](xttp://www.meshedsites.com)
 
-xttp://waves.my.blog
+[xttp://waves.my.blog](xttp://waves.my.blog)

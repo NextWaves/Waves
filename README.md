@@ -9,7 +9,7 @@ A working example can be found below:
 https://www.meshedsites.com/waves/index.html
 
 
-www.MeshedSites.com
+Intro to MeshedSites
 =====
 
 This is a quick overview of MeshedSites.com and the XTTP Firefox Plugin. 

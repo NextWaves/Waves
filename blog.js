@@ -4,6 +4,7 @@ $("#blog_title").html(title);
 $("#header_title").html(header_title);
 $("#contact").attr("href","mailto:"+contact);
 $("#contact").html(contact);
+$("#logo").attr("src",logo_img);
 
 
 
@@ -16,9 +17,25 @@ if(typeof(data[0]) == 'undefined'){
 	var d =  new Date();
 	$("#content_date").html(d.getYear() + "-" + d.getMonth()+ "-" + d.getDate());
 }else{
-	$("#content_title").html(atob(data[0].title));
-	$("#content_text").html(atob(data[0].content));
-	$("#content_date").html(data[0].year + "-" + data[0].month+ "-" + data[0].day);
+	if(window.location.hash != "" && window.location.hash.indexOf("#date") > -1){
+		dd=window.location.hash.split("=")[1];
+		ddd=dd.split("-");
+		year=ddd[0];
+		month=ddd[1];
+		day=ddd[2];
+		for(var i in data){
+			if(data[i].year == year && data[i].day == day && data[i].month == month){
+				$("#content_title").html(atob(data[i].title));
+				$("#content_text").html(atob(data[i].content));
+				$("#content_date").html(data[i].year + "-" + data[i].month+ "-" + data[i].day);
+			}
+		}
+
+	}else{
+		$("#content_title").html(atob(data[0].title));
+		$("#content_text").html(atob(data[0].content));
+		$("#content_date").html(data[0].year + "-" + data[0].month+ "-" + data[0].day);
+	}
 }
 
 
@@ -28,7 +45,8 @@ var links = {};
 for(var i in data){
 	if(typeof(links[data[i].year]) == 'undefined')
 		links[data[i].year]="";
-	links[data[i].year] += "<li><a href=\"#date\" class='archive_date' " + data[i].year + "'>"+data[i].year + "-" + data[i].month+ "-" + data[i].day + "</a></li>";
+	data_date=data[i].year + "-" + data[i].month+ "-" + data[i].day
+	links[data[i].year] += "<li><a href=\"#date="+data_date+"\" class='archive_date' " + data[i].year + "'>"+data_date+ "</a></li>";
 }
 
 archiveHtml="<ul>";

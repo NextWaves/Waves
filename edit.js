@@ -13,7 +13,11 @@ marked.setOptions({
 currDate=new Date();
 var markdown=""
 $("#content_date").html(currDate.getFullYear() +"-"+ (parseInt(currDate.getMonth()) +1) +"-"+ currDate.getDate() );
+$("#content_title").html("Enter Title");
+$("#content_text").html("Edit Contents");
 
+var title_timeout;
+var text_timeout;
 
 
 $("#content_title").click(
@@ -21,20 +25,27 @@ $("#content_title").click(
 		prev=$(this).html();
 		if(prev.indexOf("title_input") > -1)
 			return;
-
+		$("#content_date").html(currDate.getFullYear() +"-"+ (parseInt(currDate.getMonth()) +1) +"-"+ currDate.getDate() );
 		$(this).html("<input class='title_input' id='title_input' type='text' value='"+prev+"'>");
 	}
 );
 
+$("#content_title").mouseenter(function(){
+	clearTimeout(title_timeout);
+
+});
+
 $("#content_title").mouseleave(
 			function(){
-				if (typeof( $("#title_input").val() ) != 'undefined'){
-					if($("#title_input").val()=="")
-						$("#content_title").html("Enter Title");
-					else
-						$("#content_title").html($("#title_input").val());
+				title_timeout = setTimeout(function(){
+					if (typeof( $("#title_input").val() ) != 'undefined'){
+						if($("#title_input").val()=="")
+							$("#content_title").html("Enter Title");
+						else
+							$("#content_title").html($("#title_input").val());
 
-				}
+					}
+				}, 1000);
 					
 			}
 		);
@@ -47,30 +58,33 @@ $("#content_text").click(
 		prev=$(this).html();
 		if(prev.indexOf("text_input") > -1)
 			return;
-		
+		$("#content_date").html(currDate.getFullYear() +"-"+ (parseInt(currDate.getMonth()) +1) +"-"+ currDate.getDate() );
 		$(this).html("<span style='float:right'>Markdown Editor</span><br><textarea class='text_input' id='text_input' type='text' >" +markdown+"</textarea>");
 
 	}
 );
 
+$("#content_text").mouseenter(function(){
+	clearTimeout(text_timeout);
 
+});
 $("#content_text").mouseleave(
 			function(){
-			
-				if (typeof( $("#text_input").val() ) != 'undefined'){
-					//$("#content_text").html($("#text_input").val());
-					markdown=$("#text_input").val();
-					marked($("#text_input").val(),function(err, content){
-							if(markdown.trim()==""){
-								content="Edit Contents";
-							}
-							$("#content_text").html(content);
+				text_timeout = setTimeout( function(){
+						if (typeof( $("#text_input").val() ) != 'undefined'){
+							//$("#content_text").html($("#text_input").val());
+							markdown=$("#text_input").val();
+							marked($("#text_input").val(),function(err, content){
+									if(markdown.trim()==""){
+										content="Edit Contents";
+									}
+									$("#content_text").html(content);
 
-					});
+							});
 
-				}
+						}
+					}, 1000);
 					
-
 			}
 		);
 

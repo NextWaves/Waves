@@ -22,7 +22,7 @@ The decentralized nature of the platform makes denial of service virtually impos
 
 This process can be used to share a site with the world or just to share a picture album with family. Record music and share tracks with your friends. Your size limitations are your own hard drive and once its shared your friends and family they act as backups in the event your hard drive crashes or other tragic event that would normal mean your files are lost forever.
 
-The data is in the Cloud but its YOUR cloud.
+The data is in the Cloud but its _YOUR_ cloud.
 
 
 More information can be found below:

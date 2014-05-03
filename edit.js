@@ -105,6 +105,7 @@ function addEntry(){
 
 	ndata=JSON.parse(newdata);
 	data.unshift(ndata);
+	updateSelect();
 
 }
 

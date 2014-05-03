@@ -5,7 +5,7 @@ marked.setOptions({
   tables: true,
   breaks: true,
   pedantic: false,
-  sanitize: true,
+  sanitize: false,
   smartLists: true,
   smartypants: false
 });
@@ -99,13 +99,16 @@ $("#content_text").mouseleave(
 					
 			}
 		);
-
-function generate(){
+function addEntry(){
 	currDate=new Date();
 	newdata = "{ \"year\" : \""+currDate.getFullYear()+"\", \"month\": \""+(parseInt(currDate.getMonth()) +1) +"\", \"day\" :\""+currDate.getDate()+"\", \"title\" :\""+btoa($("#content_title").html())+"\", \"content\" :\""+btoa($("#content_text").html())+"\"}";
 
 	ndata=JSON.parse(newdata);
 	data.unshift(ndata);
+
+}
+
+function generate(){
 	datastr=JSON.stringify(data);
 	datastr=datastr.replace(/"/g,"\\\"");
 	datastr= "database=\"" + datastr + "\";";
@@ -133,3 +136,7 @@ $("#delete").click(function(){
 	}
 
 });
+
+window.onbeforeunload = function(){
+  return 'Are you sure you want to leave?';
+};

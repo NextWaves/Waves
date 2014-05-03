@@ -40,49 +40,52 @@ if(typeof(data[0]) == 'undefined'){
 
 
 //create the archive sidebar
-var links = {};
+function updateArchive(){
+	var links = {};
 
-for(var i in data){
-	if(typeof(links[data[i].year]) == 'undefined')
-		links[data[i].year]="";
-	data_date=data[i].year + "-" + data[i].month+ "-" + data[i].day
-	links[data[i].year] += "<li><a href=\"#date="+data_date+"\" class='archive_date' " + data[i].year + "'>"+data_date+ "</a></li>";
-}
+	for(var i in data){
+		if(typeof(links[data[i].year]) == 'undefined')
+			links[data[i].year]="";
+		data_date=data[i].year + "-" + data[i].month+ "-" + data[i].day
+		links[data[i].year] += "<li><a href=\"#date="+data_date+"\" title='" + atob(data[i].title) + "' class='archive_date' " + data[i].year + "'>"+data_date+ "</a></li>";
+	}
 
-archiveHtml="<ul>";
-for(var key in links){
-	archiveHtml+="<li><a href=\"#year\" class='archive_year' year='" + key + "'> " + key + "</a><br><div id='year_"+key+ "' class='archive_dates'><ul>" + links[key] + "</ul></div>";
-}
-archiveHtml+="</ul>";
+	archiveHtml="<ul>";
+	for(var key in links){
+		archiveHtml+="<li><a href=\"#year\" class='archive_year' year='" + key + "'> " + key + "</a><br><div id='year_"+key+ "' class='archive_dates'><ul>" + links[key] + "</ul></div>";
+	}
+	archiveHtml+="</ul>";
 
-$("#archive").html(archiveHtml);
+	$("#archive").html(archiveHtml);
 
-$(".archive_year").click(
-	function() {
-		year = $(this).attr('year');
-		if( $("#year_"+year).is(':visible') ){
-			$("#year_"+year).hide();
-		}else{
-			$("#year_"+year).show();
-		}
-
-	});
-
-
-$(".archive_date").click(
-	function(){
-		sel_date=$(this).html();
-		year=sel_date.split("-")[0];
-		month=sel_date.split("-")[1];
-		day=sel_date.split("-")[2];
-		for(var i in data){
-			if(data[i].year == year && data[i].day == day && data[i].month == month){
-				$("#content_title").html(atob(data[i].title));
-				$("#content_text").html(atob(data[i].content));
-				$("#content_date").html(data[i].year + "-" + data[i].month+ "-" + data[i].day);
+	$(".archive_year").click(
+		function() {
+			year = $(this).attr('year');
+			if( $("#year_"+year).is(':visible') ){
+				$("#year_"+year).hide();
+			}else{
+				$("#year_"+year).show();
 			}
-		}
-	});
+
+		});
+
+
+	$(".archive_date").click(
+		function(){
+			sel_date=$(this).html();
+			year=sel_date.split("-")[0];
+			month=sel_date.split("-")[1];
+			day=sel_date.split("-")[2];
+			for(var i in data){
+				if(data[i].year == year && data[i].day == day && data[i].month == month){
+					$("#content_title").html(atob(data[i].title));
+					$("#content_text").html(atob(data[i].content));
+					$("#content_date").html(data[i].year + "-" + data[i].month+ "-" + data[i].day);
+				}
+			}
+		});
+}
+updateArchive();
 
 
 

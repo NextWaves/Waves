@@ -11,10 +11,22 @@ marked.setOptions({
 });
 
 currDate=new Date();
-var markdown=""
+var markdown="";
 $("#content_date").html(currDate.getFullYear() +"-"+ (parseInt(currDate.getMonth()) +1) +"-"+ currDate.getDate() );
 $("#content_title").html("Enter Title");
 $("#content_text").html("Edit Contents");
+
+function updateSelect(){
+	var select = $('<select id="selections" />');
+	for( var i in data ){
+		d = data[i].year + "-" + data[i].month + "-" + data[i].day;
+			$('<option />', {value: d, text: d, title: atob(data[i].title) }).appendTo(select);
+	}
+	//select.appendTo("#Entries");
+	$("#Entries").html(select);
+	updateArchive();
+}
+updateSelect();
 
 var title_timeout;
 var text_timeout;
@@ -99,5 +111,25 @@ function generate(){
 	datastr= "database=\"" + datastr + "\";";
 	enc=btoa(datastr);
 	$("#download").attr("href", "data:application/octet-stream;charset=utf-8;base64,"+enc);
+	updateSelect();
 
 }
+
+
+$("#delete").click(function(){
+	
+	dd=$("#selections").val();
+	for(var i in data){
+		ddd=dd.split("-");
+		year=ddd[0];
+		month=ddd[1];
+		day=ddd[2];
+		if(data[i].year == year && data[i].month == month && data[i].day == day){
+			console.log("Deleting " + $("#selections").val());
+			data.splice(i,1);
+			updateSelect();
+			return;
+		}
+	}
+
+});

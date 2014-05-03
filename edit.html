@@ -22,7 +22,7 @@
 				<div class="sidebar">
 					<div class="sideWidget">
 						<h2>Generate Database</h2>
-						<input type="button" value="Generate" onClick="generate()" /><br>
+						<input type="button" value="Add Entry" onClick="generate()" /><br>
 						<a href="" id="download" download="database.js">Download it</a>
 					</div>
 					<div class="spacer"></div>
@@ -34,6 +34,12 @@
 					<div class="sideWidget">
 						<h2>Archive</h2>
 						<div id="archive"></div>
+					</div>
+					<div class="spacer"></div>
+					<div class="sideWidget">
+						<h2>Delete an Entry</h2>
+						<div id="Entries"></div>
+						<input type="button" id="delete" value="delete" name="delete"/>
 					</div>
 					<div class="spacer"></div>
 				</div>
@@ -58,7 +64,7 @@
 			var title="Waves Blog";
 			var header_title="Waves Blog";
 			var contact="bluewires@riseup.net";
-			var domain="https://www.meshedsites.com/waves";
+			var domain="file:///Users/ascetik/btsync_sites/waves.meshedsites.com/Waves";
 			var logo_img=domain+"/logo.png";
 
 

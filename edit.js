@@ -1,17 +1,8 @@
 
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  gfm: true,
-  tables: true,
-  breaks: true,
-  pedantic: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false
-});
+
 
 currDate=new Date();
-var markdown="";
+
 $("#content_date").html(currDate.getFullYear() +"-"+ (parseInt(currDate.getMonth()) +1) +"-"+ currDate.getDate() );
 $("#content_title").html("Enter Title");
 $("#content_text").html("Edit Contents");
@@ -20,9 +11,8 @@ function updateSelect(){
 	var select = $('<select id="selections" />');
 	for( var i in data ){
 		d = data[i].year + "-" + data[i].month + "-" + data[i].day;
-			$('<option />', {value: d, text: d, title: atob(data[i].title) }).appendTo(select);
+			$('<option />', {value: data[i].id, text: d, title: atob(data[i].title) }).appendTo(select);
 	}
-	//select.appendTo("#Entries");
 	$("#Entries").html(select);
 	updateArchive();
 }
@@ -30,8 +20,6 @@ updateSelect();
 
 var title_timeout;
 var text_timeout;
-
-
 $("#content_title").click(
 	function (){
 		prev=$(this).html();
@@ -71,7 +59,7 @@ $("#content_text").click(
 		if(prev.indexOf("text_input") > -1)
 			return;
 		$("#content_date").html(currDate.getFullYear() +"-"+ (parseInt(currDate.getMonth()) +1) +"-"+ currDate.getDate() );
-		$(this).html("<span style='float:right'>Markdown Editor</span><br><textarea class='text_input' id='text_input' type='text' >" +markdown+"</textarea>");
+		$(this).html("<span style='float:right'>Markdown Editor</span><br><textarea class='text_input' id='text_input' type='text' >" +$("#content_markdown").html() +"</textarea>");
 
 	}
 );
@@ -85,7 +73,8 @@ $("#content_text").mouseleave(
 				text_timeout = setTimeout( function(){
 						if (typeof( $("#text_input").val() ) != 'undefined'){
 							//$("#content_text").html($("#text_input").val());
-							markdown=$("#text_input").val();
+							var markdown=$("#text_input").val();
+							$("#content_markdown").html(markdown);
 							marked($("#text_input").val(),function(err, content){
 									if(markdown.trim()==""){
 										content="Edit Contents";
@@ -99,15 +88,42 @@ $("#content_text").mouseleave(
 					
 			}
 		);
+
+
 function addEntry(){
 	currDate=new Date();
-	newdata = "{ \"year\" : \""+currDate.getFullYear()+"\", \"month\": \""+(parseInt(currDate.getMonth()) +1) +"\", \"day\" :\""+currDate.getDate()+"\", \"title\" :\""+btoa($("#content_title").html())+"\", \"content\" :\""+btoa($("#content_text").html())+"\"}";
+	var unixtime = parseInt(currDate.getTime() / 1000);
+	newdata = "{ \"id\" : \"" + unixtime +"\" , \"year\" : \""+currDate.getFullYear()+"\", \"month\": \""+(parseInt(currDate.getMonth()) +1) +"\", \"day\" :\""+currDate.getDate()+"\", \"title\" :\""+btoa($("#content_title").html())+"\", \"content\" :\""+btoa($("#content_markdown").html())+"\"}";
 
 	ndata=JSON.parse(newdata);
 	data.unshift(ndata);
 	updateSelect();
 
 }
+$("#new").click(function () {
+	$("#content_title").html("Enter Title");
+	$("#content_text").html("Edit Contents");
+	$("#add").show();
+	$("#update").hide();
+	$("#new").hide();
+});
+
+$("#update").click(function () {
+
+
+	id=$(this).attr("date");
+	alert(id);
+	for(var i in data){
+		if(data[i].id == id){
+			data[i].title = btoa($("#content_title").html());
+			data[i].content = btoa($("#content_markdown").html());
+		}
+
+	}
+
+	updateSelect();
+
+});
 
 function generate(){
 	datastr=JSON.stringify(data);
@@ -124,11 +140,7 @@ $("#delete").click(function(){
 	
 	dd=$("#selections").val();
 	for(var i in data){
-		ddd=dd.split("-");
-		year=ddd[0];
-		month=ddd[1];
-		day=ddd[2];
-		if(data[i].year == year && data[i].month == month && data[i].day == day){
+		if(data[i].id == dd ){
 			console.log("Deleting " + $("#selections").val());
 			data.splice(i,1);
 			updateSelect();

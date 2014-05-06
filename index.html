@@ -37,7 +37,9 @@
 					<div id="content_area">
 						<div id="content_date"></div>
 						<div id="content_title"></div>
+						<hr> 
 						<div id="content_text"></div>
+						<div id="content_markdown" style="display:none"></div>
 					</div>
 				</div>
 
@@ -46,14 +48,14 @@
 			<footer></footer>
 		</div>
 		<div id="scripts"></div>
+		<div id="update"></div>
 		<script>
 			//Common settings for the blog
-			var title="Waves Blog";
-			var header_title="Waves Blog";
-			var contact="you@email.com";
-			var domain="https://www.meshedsites.com/waves";
+			var title="BlueWires Blog";
+			var header_title="BlueWires Blog";
+			var contact="bluewires@riseup.net";
+			var domain="xttp://waves.my.blog";
 			var logo_img=domain+"/logo.png";
-
 
 
 
@@ -93,6 +95,11 @@
 			        var fileref=document.createElement('script');
 		  			fileref.setAttribute("type","text/javascript");
 		  			fileref.setAttribute("src", domain+"/database.js");
+		  			document.getElementById("scripts").appendChild(fileref);
+
+		  			var fileref=document.createElement('script');
+		  			fileref.setAttribute("type","text/javascript");
+		  			fileref.setAttribute("src", domain+"/marked.js");
 		  			document.getElementById("scripts").appendChild(fileref);
 
 		  			var fileref=document.createElement('script');

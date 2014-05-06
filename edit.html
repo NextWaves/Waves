@@ -22,7 +22,9 @@
 				<div class="sidebar">
 					<div class="sideWidget">
 						<h2>Generate Database</h2>
-						<input type="button" value="Add Entry" onClick="addEntry()" /><br>
+						<input id="new" type="button" value="Create New" style="display:none"/><br>
+						<input id="add" type="button" value="Add New Entry" onClick="addEntry()" /><br>
+						<input id="update" type="button" value="Update Entry" style="display:none"/><br>
 						<input type="button" value="Generate" onClick="generate()" /><br>
 						<a href="" id="download" download="database.js">Download it</a>
 					</div>
@@ -50,7 +52,9 @@
 					<div id="content_area">
 						<div id="content_date"></div>
 						<div id="content_title"></div>
+						<hr> 
 						<div id="content_text"></div>
+						<div id="content_markdown" style="display:none"></div>
 					</div>
 				</div>
 
@@ -62,10 +66,10 @@
 
 		<script>
 			//Common settings for the blog
-			var title="Waves Blog";
-			var header_title="Waves Blog";
-			var contact="you@email.com";
-			var domain="https://www.meshedsites.com/waves";
+			var title="BlueWires Blog";
+			var header_title="BlueWires Blog";
+			var contact="bluewires@riseup.net";
+			var domain="xttp://waves.my.blog";
 			var logo_img=domain+"/logo.png";
 
 

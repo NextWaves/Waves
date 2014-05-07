@@ -103,6 +103,7 @@ function addEntry(){
 $("#new").click(function () {
 	$("#content_title").html("Enter Title");
 	$("#content_text").html("Edit Contents");
+	$("#content_markdown").html("");
 	$("#add").show();
 	$("#update").hide();
 	$("#new").hide();

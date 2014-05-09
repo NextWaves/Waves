@@ -13,7 +13,7 @@ marked.setOptions({
   tables: true,
   breaks: true,
   pedantic: false,
-  sanitize: false,
+  sanitize: true,
   smartLists: true,
   smartypants: false
 });
@@ -34,7 +34,9 @@ if(typeof(data[0]) == 'undefined'){
 		for(var i in data){
 			if(data[i].id = dd){
 				$("#content_title").html(atob(data[i].title));
-				marked(atob(data[i].content),function(err, content){
+				$("#content_markdown").html(atob(data[i].content));
+				console.info($("#content_markdown").text());
+				marked($("#content_markdown").text(),function(err, content){
 									$("#content_text").html(content);
 							});
 				//$("#content_text").html(atob(data[i].content));
@@ -44,10 +46,10 @@ if(typeof(data[0]) == 'undefined'){
 
 	}else{
 		$("#content_title").html(atob(data[0].title));
-		//$("#content_text").html(atob(data[0].content));
-		marked(atob(data[0].content),function(err, content){
-									$("#content_text").html(content);
-							});
+		$("#content_markdown").html(atob(data[0].content));
+		marked($("#content_markdown").text(),function(err, content){
+				$("#content_text").html(content);
+		});
 		$("#content_date").html(data[0].year + "-" + data[0].month+ "-" + data[0].day);
 	}
 }
@@ -60,7 +62,7 @@ function updateArchive(){
 		if(typeof(links[data[i].year]) == 'undefined')
 			links[data[i].year]="";
 		data_date=data[i].year + "-" + data[i].month+ "-" + data[i].day
-		links[data[i].year] += "<li><a href=\"#date="+data[i].id+"\" date='"+ data[i].id +"' title='" + atob(data[i].title) + "' class='archive_date' >"+data_date+ "</a></li>";
+		links[data[i].year] += "<li><a href=\"#date="+data[i].id+"\" date='"+ data[i].id +"' title='" + atob(data[i].title) + "' class='archive_date' > &#8614;&nbsp;"+ atob(data[i].title)+ "</a></li>";
 	}
 
 	archiveHtml="<ul>";
@@ -89,10 +91,10 @@ function updateArchive(){
 			for(var i in data){
 				if(data[i].id == sel_date){
 					$("#content_title").html(atob(data[i].title));
-					marked(atob(data[i].content),function(err, content){
+					$("#content_markdown").html(atob(data[i].content));
+					marked($("#content_markdown").text(),function(err, content){
 									$("#content_text").html(content);
 							});
-					$("#content_markdown").html(atob(data[i].content));
 					//$("#content_text").html(atob(data[i].content));
 					$("#content_date").html(data[i].year + "-" + data[i].month+ "-" + data[i].day);
 					$("#update").attr("date", sel_date);

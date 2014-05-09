@@ -6,6 +6,7 @@ currDate=new Date();
 $("#content_date").html(currDate.getFullYear() +"-"+ (parseInt(currDate.getMonth()) +1) +"-"+ currDate.getDate() );
 $("#content_title").html("Enter Title");
 $("#content_text").html("Edit Contents");
+$("#content_markdown").html("");
 
 function updateSelect(){
 	var select = $('<select id="selections" />');
@@ -59,7 +60,7 @@ $("#content_text").click(
 		if(prev.indexOf("text_input") > -1)
 			return;
 		$("#content_date").html(currDate.getFullYear() +"-"+ (parseInt(currDate.getMonth()) +1) +"-"+ currDate.getDate() );
-		$(this).html("<span style='float:right'>Markdown Editor</span><br><textarea class='text_input' id='text_input' type='text' >" +$("#content_markdown").html() +"</textarea>");
+		$(this).html("<span style='float:right'>Markdown Editor</span><br><textarea class='text_input' id='text_input' type='text' >" +$("#content_markdown").text() +"</textarea>");
 
 	}
 );
@@ -117,7 +118,7 @@ $("#update").click(function () {
 	for(var i in data){
 		if(data[i].id == id){
 			data[i].title = btoa($("#content_title").html());
-			data[i].content = btoa($("#content_markdown").html());
+			data[i].content = btoa($("#content_markdown").text());
 		}
 
 	}

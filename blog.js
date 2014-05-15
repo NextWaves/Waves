@@ -31,8 +31,9 @@ if(typeof(data[0]) == 'undefined'){
 }else{
 	if(window.location.hash != "" && window.location.hash.indexOf("#date") > -1){
 		dd=window.location.hash.split("=")[1];
+		console.log(dd);
 		for(var i in data){
-			if(data[i].id = dd){
+			if(data[i].id == dd){
 				$("#content_title").html(atob(data[i].title));
 				$("#content_markdown").html(atob(data[i].content));
 				console.info($("#content_markdown").text());

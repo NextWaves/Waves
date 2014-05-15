@@ -55,6 +55,8 @@
 			var header_title="Josh Security";
 			var contact="bluewires@riseup.net";
 			var domain="xttp://josh.sec";
+			//may want to change this to prevent accidentally overwiting the another database if you run multitple instances
+			var databaseFile="database.js";
 			var logo_img=domain+"/logo.png";
 
 
@@ -94,7 +96,7 @@
 			        console.log('jquery loaded');
 			        var fileref=document.createElement('script');
 		  			fileref.setAttribute("type","text/javascript");
-		  			fileref.setAttribute("src", domain+"/database.js");
+		  			fileref.setAttribute("src", domain+"/" + databaseFile);
 		  			document.getElementById("scripts").appendChild(fileref);
 
 		  			var fileref=document.createElement('script');

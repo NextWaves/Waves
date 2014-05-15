@@ -12,8 +12,8 @@ marked.setOptions({
   gfm: true,
   tables: true,
   breaks: true,
-  pedantic: false,
-  sanitize: true,
+  pedantic: true,
+  sanitize: false,
   smartLists: true,
   smartypants: false
 });
@@ -35,10 +35,11 @@ if(typeof(data[0]) == 'undefined'){
 		for(var i in data){
 			if(data[i].id == dd){
 				$("#content_title").html(atob(data[i].title));
-				$("#content_markdown").html(atob(data[i].content));
+				$("#content_markdown").text(data[i].content);
 				console.info($("#content_markdown").text());
-				marked($("#content_markdown").text(),function(err, content){
-									$("#content_text").html(content);
+				var md = atob($("#content_markdown").text());
+				marked($("<div/>").text(md).html(),function(err, content){
+									$("#content_text").text($('<div/>').text(content).html());
 							});
 				//$("#content_text").html(atob(data[i].content));
 				$("#content_date").html(data[i].year + "-" + data[i].month+ "-" + data[i].day);
@@ -47,8 +48,9 @@ if(typeof(data[0]) == 'undefined'){
 
 	}else{
 		$("#content_title").html(atob(data[0].title));
-		$("#content_markdown").html(atob(data[0].content));
-		marked($("#content_markdown").text(),function(err, content){
+		$("#content_markdown").html(data[0].content);
+		var md = atob($("#content_markdown").text());
+		marked(md,function(err, content){
 				$("#content_text").html(content);
 		});
 		$("#content_date").html(data[0].year + "-" + data[0].month+ "-" + data[0].day);
@@ -92,8 +94,9 @@ function updateArchive(){
 			for(var i in data){
 				if(data[i].id == sel_date){
 					$("#content_title").html(atob(data[i].title));
-					$("#content_markdown").html(atob(data[i].content));
-					marked($("#content_markdown").text(),function(err, content){
+					$("#content_markdown").html(data[i].content);
+					var md = atob($("#content_markdown").text());
+					marked(md,function(err, content){
 									$("#content_text").html(content);
 							});
 					//$("#content_text").html(atob(data[i].content));

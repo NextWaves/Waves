@@ -60,7 +60,7 @@ $("#content_text").click(
 		if(prev.indexOf("text_input") > -1)
 			return;
 		$("#content_date").html(currDate.getFullYear() +"-"+ (parseInt(currDate.getMonth()) +1) +"-"+ currDate.getDate() );
-		$(this).html("<span style='float:right'>Markdown Editor</span><br><textarea class='text_input' id='text_input' type='text' >" +$("#content_markdown").text() +"</textarea>");
+		$(this).html("<span style='float:right'>Markdown Editor</span><br><textarea class='text_input' id='text_input' type='text' >" +$('<div/>').text(atob($("#content_markdown").text())).html() +"</textarea>");
 
 	}
 );
@@ -75,8 +75,9 @@ $("#content_text").mouseleave(
 						if (typeof( $("#text_input").val() ) != 'undefined'){
 							//$("#content_text").html($("#text_input").val());
 							var markdown=$("#text_input").val();
-							$("#content_markdown").html(markdown);
-							marked($("#text_input").val(),function(err, content){
+							$("#content_markdown").html(btoa(markdown));
+							var md = $("#text_input").val();
+							marked(md,function(err, content){
 									if(markdown.trim()==""){
 										content="Edit Contents";
 									}
@@ -94,7 +95,7 @@ $("#content_text").mouseleave(
 function addEntry(){
 	currDate=new Date();
 	var unixtime = parseInt(currDate.getTime() / 1000);
-	newdata = "{ \"id\" : \"" + unixtime +"\" , \"year\" : \""+currDate.getFullYear()+"\", \"month\": \""+(parseInt(currDate.getMonth()) +1) +"\", \"day\" :\""+currDate.getDate()+"\", \"title\" :\""+btoa($("#content_title").html())+"\", \"content\" :\""+btoa($("#content_markdown").html())+"\"}";
+	newdata = "{ \"id\" : \"" + unixtime +"\" , \"year\" : \""+currDate.getFullYear()+"\", \"month\": \""+(parseInt(currDate.getMonth()) +1) +"\", \"day\" :\""+currDate.getDate()+"\", \"title\" :\""+btoa($("#content_title").html())+"\", \"content\" :\""+$("#content_markdown").html()+"\"}";
 
 	ndata=JSON.parse(newdata);
 	data.unshift(ndata);

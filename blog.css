@@ -125,12 +125,12 @@ li{
 }
 pre{
 	background-color: #EFEFEF;
-	padding: 3px;
+	padding: 10px;
 	border: 1px solid;
 	border-color: #AAAAAA;
 }
 code {
-	padding: 10px;
+	padding: 0px;
 
 
 }

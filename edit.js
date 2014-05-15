@@ -95,7 +95,7 @@ $("#content_text").mouseleave(
 function addEntry(){
 	currDate=new Date();
 	var unixtime = parseInt(currDate.getTime() / 1000);
-	newdata = "{ \"id\" : \"" + unixtime +"\" , \"year\" : \""+currDate.getFullYear()+"\", \"month\": \""+(parseInt(currDate.getMonth()) +1) +"\", \"day\" :\""+currDate.getDate()+"\", \"title\" :\""+btoa($("#content_title").html())+"\", \"content\" :\""+$("#content_markdown").html()+"\"}";
+	newdata = "{ \"id\" : \"" + unixtime +"\" , \"year\" : \""+currDate.getFullYear()+"\", \"month\": \""+(parseInt(currDate.getMonth()) +1) +"\", \"day\" :\""+currDate.getDate()+"\", \"title\" :\""+btoa($("#content_title").html())+"\", \"content\" :\""+$("#content_markdown").text()+"\"}";
 
 	ndata=JSON.parse(newdata);
 	data.unshift(ndata);
@@ -119,7 +119,7 @@ $("#update").click(function () {
 	for(var i in data){
 		if(data[i].id == id){
 			data[i].title = btoa($("#content_title").html());
-			data[i].content = btoa($("#content_markdown").text());
+			data[i].content = $("#content_markdown").text();
 		}
 
 	}

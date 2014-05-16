@@ -38,8 +38,8 @@ if(typeof(data[0]) == 'undefined'){
 				$("#content_markdown").text(data[i].content);
 				console.info($("#content_markdown").text());
 				var md = atob($("#content_markdown").text());
-				marked($("<div/>").text(md).html(),function(err, content){
-									$("#content_text").text($('<div/>').text(content).html());
+				marked(md,function(err, content){
+									$("#content_text").html(content);
 							});
 				//$("#content_text").html(atob(data[i].content));
 				$("#content_date").html(data[i].year + "-" + data[i].month+ "-" + data[i].day);
@@ -70,7 +70,7 @@ function updateArchive(){
 
 	archiveHtml="<ul>";
 	for(var key in links){
-		archiveHtml+="<li><a href=\"#year\" class='archive_year' year='" + key + "'> " + key + "</a><br><div id='year_"+key+ "' class='archive_dates'><ul>" + links[key] + "</ul></div>";
+		archiveHtml+="<li><a href=\"#year\" class='archive_year' year='" + key + "'> <b>" + key + "</b></a><br><div id='year_"+key+ "' class='archive_dates'><ul>" + links[key] + "</ul></div>";
 	}
 	archiveHtml+="</ul>";
 
@@ -96,6 +96,8 @@ function updateArchive(){
 					$("#content_title").html(atob(data[i].title));
 					$("#content_markdown").html(data[i].content);
 					var md = atob($("#content_markdown").text());
+					console.log($("#content_markdown").text());
+					console.log(md);
 					marked(md,function(err, content){
 									$("#content_text").html(content);
 							});
@@ -108,6 +110,7 @@ function updateArchive(){
 				}
 			}
 		});
+	$("#year_"+data[0].year).show();
 }
 updateArchive();
 

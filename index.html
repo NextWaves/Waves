@@ -3,7 +3,6 @@
 	<head>
 		<meta charset="UTF-8">
 		<title id="blog_title"></title>
-
 	</head>
 	<body>
 		<center>
@@ -55,7 +54,7 @@
 			var header_title="Waves Blog";
 			var contact="bluewires@riseup.net";
 			var domain="http://www.meshedsites.com/waves/";
-			//may want to change this to prevent accidentally overwiting the another database if you run multitple instances
+			//may want to change this to prevent accidentally overwiting another database if you run multitple instances
 			var databaseFile="database.js";
 			var logo_img=domain+"/logo.png";
 
@@ -91,27 +90,15 @@
 			    }
 
 			    loadScript(domain+"/jquery.js", function () {
-
-			         //jQuery loaded
-			        console.log('jquery loaded');
-			        var fileref=document.createElement('script');
-		  			fileref.setAttribute("type","text/javascript");
-		  			fileref.setAttribute("src", domain+"/" + databaseFile);
-		  			document.getElementById("scripts").appendChild(fileref);
-
-		  			var fileref=document.createElement('script');
-		  			fileref.setAttribute("type","text/javascript");
-		  			fileref.setAttribute("src", domain+"/marked.js");
-		  			document.getElementById("scripts").appendChild(fileref);
-
-		  			var fileref=document.createElement('script');
-		  			fileref.setAttribute("type","text/javascript");
-		  			fileref.setAttribute("src", domain+"/blog.js");
-		  			document.getElementById("scripts").appendChild(fileref);
-		  			$("#spinner").hide();
-		  			$("#all_content").show();
-
-			    });
+			    	loadScript(domain+"/marked.js", function () {
+				    	loadScript(domain+"/" + databaseFile, function () {
+				    		loadScript(domain+"/blog.js", function () {
+			    				$("#spinner").hide();
+		  						$("#all_content").show();
+				     		});
+				     	});
+				     });
+			     });
 
 			})();
 			function append(tag, tag_data){

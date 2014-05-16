@@ -9,6 +9,22 @@
 #all_content{
 	display: none;
 }
+.powerWrapper{
+	margin-top: 15px;
+	width:150px;
+	height: 32px;
+}
+.powerTxt{
+	padding-bottom: 10px;
+}
+.power{
+	margin-top:-10px;
+	float: right;
+	//display: inline-block;
+	width:64px;
+	height: 32px;
+	background-image: url(data:image/png;base64,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);
+}
 body{
 	font-family: 
 	padding:0px;
@@ -23,6 +39,7 @@ header{
 	border-bottom: solid;
 	border-color: #666666;
 	border-width: 1px;
+	box-shadow: 5px 5px 5px #888888;
 
 
 }
@@ -83,9 +100,14 @@ li{
 	width: 700px;
 	margin: 0;
 	padding:0;
+
 }
 #content_date{
 	font-size: 15px;
+	background-color: #1C1C1C;
+	color:white;
+	padding-left:5px;
+	width:80px;
 }
 #content_area{
 	padding: 10px;
@@ -93,6 +115,9 @@ li{
 	border: solid;
 	border-color: #666666;
 	border-width: 1px;
+	box-shadow: 0px 10px 10px #888888;
+	border-radius:15px;
+	margin-bottom: 50px;
 }
 #content_title{
 	margin-bottom: 10px;
@@ -106,12 +131,18 @@ li{
 
 }
 .archive_dates{
-	margin-left: -20px;
+	//margin-left: -30px;
 	display: none;
 }
 #archive a {
 	text-decoration: none;
 	color: #555555;
+}
+#archive ul{
+	margin-left:-30px;
+}
+#archive li{
+	margin-bottom: 5px;
 }
 
 .title_input{

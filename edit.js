@@ -115,7 +115,7 @@ $("#update").click(function () {
 
 
 	id=$(this).attr("date");
-	alert(id);
+	
 	for(var i in data){
 		if(data[i].id == id){
 			data[i].title = btoa($("#content_title").html());

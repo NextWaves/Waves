@@ -60,7 +60,8 @@ if(typeof(data[0]) == 'undefined'){
 //create the archive sidebar
 function updateArchive(){
 	var links = {};
-
+	if(typeof(data[0]) == 'undefined')
+		return;
 	for(var i in data){
 		if(typeof(links[data[i].year]) == 'undefined')
 			links[data[i].year]="";

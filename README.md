@@ -8,7 +8,7 @@ Waves is a new blogging platform developed for the new decentralized web or a pe
 For more information on XTTP and BitTorrent Sync integration vist https://www.meshedsites.com
 
 A working example can be found below:
-https://www.meshedsites.com/waves/index.html
+https://www.meshedsites.com/blog/index.html
 
 
 Intro to MeshedSites

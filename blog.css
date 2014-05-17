@@ -102,14 +102,14 @@ li{
 	padding:0;
 
 }
-#content_date{
+.content_date{
 	font-size: 15px;
 	background-color: #1C1C1C;
 	color:white;
 	padding-left:5px;
 	width:80px;
 }
-#content_area{
+.content_area{
 	padding: 10px;
 	background-color: white;
 	border: solid;
@@ -119,13 +119,13 @@ li{
 	border-radius:15px;
 	margin-bottom: 50px;
 }
-#content_title{
+.content_title{
 	margin-bottom: 10px;
 }
-#content_text{
+.content_text{
 	font-size: 20px;
 }
-#content_text li{
+.content_text li{
 	font-size: 20px;
 	list-style-type: disc;
 

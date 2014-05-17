@@ -34,7 +34,7 @@ if(typeof(data[0]) == 'undefined'){
 		console.log(dd);
 		for(var i in data){
 			if(data[i].id == dd){
-				$("#content_title").html(atob(data[i].title));
+				/*$("#content_title").html(atob(data[i].title));
 				$("#content_markdown").text(data[i].content);
 				console.info($("#content_markdown").text());
 				var md = atob($("#content_markdown").text());
@@ -42,26 +42,82 @@ if(typeof(data[0]) == 'undefined'){
 									$("#content_text").html(content);
 							});
 				//$("#content_text").html(atob(data[i].content));
-				$("#content_date").html(data[i].year + "-" + data[i].month+ "-" + data[i].day);
+				$("#content_date").html(data[i].year + "-" + data[i].month+ "-" + data[i].day);*/
+				var carea=$("<div/>").addClass("content_area");
+				var ctitle=$("<div/>").addClass("content_title");
+				var cdate=$("<div/>").addClass("content_date");
+				var ctext=$("<div/>").addClass("content_text");
+				//var cmd=$("<div/>").addClass("conent_markdown");
+				ctitle.html(atob(data[i].title));
+				cdate.html(data[i].year + "-" + data[i].month+ "-" + data[i].day);
+				var md = atob(data[i].content);
+				marked(md,function(err, content){
+						ctext.html(content);
+				});
+				carea.append(cdate);
+				carea.append(ctitle);
+				carea.append("<hr>");
+				carea.append(ctext);
+				$(".content").append(carea);
+
 			}
 		}
 
 	}else{
-		$("#content_title").html(atob(data[0].title));
+		/*$("#content_title").html(atob(data[0].title));
 		$("#content_markdown").html(data[0].content);
 		var md = atob($("#content_markdown").text());
 		marked(md,function(err, content){
 				$("#content_text").html(content);
 		});
-		$("#content_date").html(data[0].year + "-" + data[0].month+ "-" + data[0].day);
+		$("#content_date").html(data[0].year + "-" + data[0].month+ "-" + data[0].day);*/
+
+		for(var i in data){
+			if(edit==true){
+				$("#content_title").html(atob(data[0].title));
+				$("#content_markdown").html(data[0].content);
+				var md = atob($("#content_markdown").text());
+				marked(md,function(err, content){
+						$("#content_text").html(content);
+				});
+				$("#content_date").html(data[0].year + "-" + data[0].month+ "-" + data[0].day);
+			}
+			else if(i<=4){
+				if(typeof(data[i]) == 'undefined')
+					break;
+				var carea=$("<div/>").addClass("content_area");
+				var ctitle=$("<div/>").addClass("content_title");
+				var cdate=$("<div/>").addClass("content_date");
+				var ctext=$("<div/>").addClass("content_text");
+				//var cmd=$("<div/>").addClass("conent_markdown");
+				ctitle.html(atob(data[i].title));
+				cdate.html(data[i].year + "-" + data[i].month+ "-" + data[i].day);
+				var md = atob(data[i].content);
+				marked(md,function(err, content){
+						ctext.html(content);
+				});
+				carea.append(cdate);
+				carea.append(ctitle);
+				carea.append("<hr>");
+				carea.append(ctext);
+				$(".content").append(carea);
+			}
+		}
+
+	
+
+
+
 	}
 }
 
 //create the archive sidebar
 function updateArchive(){
 	var links = {};
-	if(typeof(data[0]) == 'undefined')
+
+	if(typeof(data[0].year) == 'undefined')
 		return;
+
 	for(var i in data){
 		if(typeof(links[data[i].year]) == 'undefined')
 			links[data[i].year]="";
@@ -94,7 +150,7 @@ function updateArchive(){
 			sel_date=$(this).attr("date");
 			for(var i in data){
 				if(data[i].id == sel_date){
-					$("#content_title").html(atob(data[i].title));
+					/*$("#content_title").html(atob(data[i].title));
 					$("#content_markdown").html(data[i].content);
 					var md = atob($("#content_markdown").text());
 					console.log($("#content_markdown").text());
@@ -104,10 +160,37 @@ function updateArchive(){
 							});
 					//$("#content_text").html(atob(data[i].content));
 					$("#content_date").html(data[i].year + "-" + data[i].month+ "-" + data[i].day);
-					$("#update").attr("date", sel_date);
+					$("#update").attr("date", sel_date);*/
+
+					var carea=$("<div/>").addClass("content_area");
+					var ctitle=$("<div/>").addClass("content_title");
+					ctitle.attr("id","content_title");
+					var cdate=$("<div/>").addClass("content_date");
+					cdate.attr("id", "content_date");
+					var ctext=$("<div/>").addClass("content_text");
+					ctext.attr("id", "content_text");
+					//var cmd=$("<div/>").addClass("conent_markdown");
+					ctitle.html(atob(data[i].title));
+					cdate.html(data[i].year + "-" + data[i].month+ "-" + data[i].day);
+					var md = atob(data[i].content);
+					marked(md,function(err, content){
+							ctext.html(content);
+					});
+					var cmark=$("<div/>").addClass("content_markdown");
+					cmark.attr("id", "content_markdown");
+					cmark.hide();
+					cmark.html(data[i].content);
+					carea.append(cdate);
+					carea.append(ctitle);
+					carea.append("<hr>");
+					carea.append(ctext);
+					carea.append(cmark)
+					$(".content").html(carea);
 					$("#add").hide();
 					$("#update").show();
 					$("#new").show();
+					if(edit==true)
+						registerContentEvents();
 				}
 			}
 		});

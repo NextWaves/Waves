@@ -54,12 +54,12 @@
 
 
 				<div class="content">
-					<div id="content_area">
-						<div id="content_date"></div>
-						<div id="content_title"></div>
+					<div class="content_area" id="content_area">
+						<div class="content_date" id="content_date"></div>
+						<div class="content_title" id="content_title"></div>
 						<hr> 
-						<div id="content_text"></div>
-						<div id="content_markdown" style="display:none"></div>
+						<div class="content_text" id="content_text"></div>
+						<div class="content_markdown" id="content_markdown" style="display:none"></div>
 					</div>
 				</div>
 
@@ -87,6 +87,7 @@
 			append('head', '<link rel="stylesheet" type="text/css" href="'+domain+'/blog.css">');
 			//thanks to jQuery4u for the following code:
 			// http://www.jquery4u.com/javascript/dynamically-load-jquery-library-javascript/
+			edit=true;
 			(function () {
 
 			    function loadScript(url, callback) {
@@ -112,7 +113,10 @@
 			    }
 
 			    loadScript(domain+"/jquery.js", function () {
-			    	loadScript(domain+"/marked.js", function () {
+			    	$("#logo").click(function(){
+						window.location=domain+"/index.html";
+					});
+					loadScript(domain+"/marked.js", function () {
 				    	loadScript(domain+"/" + databaseFile, function () {
 				    		loadScript(domain+"/blog.js", function () {
 				    			loadScript(domain+"/edit.js", function () {

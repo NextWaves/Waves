@@ -159,8 +159,8 @@ function updateArchive(){
 									$("#content_text").html(content);
 							});
 					//$("#content_text").html(atob(data[i].content));
-					$("#content_date").html(data[i].year + "-" + data[i].month+ "-" + data[i].day);
-					$("#update").attr("date", sel_date);*/
+					$("#content_date").html(data[i].year + "-" + data[i].month+ "-" + data[i].day);*/
+					
 
 					var carea=$("<div/>").addClass("content_area");
 					var ctitle=$("<div/>").addClass("content_title");
@@ -189,8 +189,10 @@ function updateArchive(){
 					$("#add").hide();
 					$("#update").show();
 					$("#new").show();
-					if(edit==true)
+					if(edit==true){
 						registerContentEvents();
+						$("#update").attr("date", sel_date);
+					}
 				}
 			}
 		});

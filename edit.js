@@ -138,7 +138,46 @@ function generate(){
 	datastr= "database=\"" + datastr + "\";";
 	enc=btoa(datastr);
 	$("#download").attr("href", "data:application/octet-stream;charset=utf-8;base64,"+enc);
+	$("#download").attr("download",databaseFile);
 	updateSelect();
+
+	if(rss == false)
+		return
+	
+	//rss feed
+	var rss = rssHeader;
+	for(var i in data){
+		rss+="<item>";
+		rss+="<title><![CDATA[" + atob(data[i].title) +"]]></title>";
+		rss+="<link><![CDATA["+rssdomain+"?date="+data[i].id +"]]></link>";
+		rss+="<guid><![CDATA["+rssdomain+"?date="+data[i].id +"]]></guid>";
+		var pubDate=new Date(data[i].id*1000);
+		var weekday=new Array("Sun","Mon","Tue","Wed","Thu","Fri","Sat");
+		var monthname=new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
+		var formattedDate = weekday[pubDate.getDay()] + ', ' 
+					+ pubDate.getDate() + ' '
+                    + monthname[pubDate.getMonth()] + ' ' 
+                    + pubDate.getFullYear() + ' '
+                    + (pubDate.getHours() < 10 ? "0"+pubDate.getHours() : pubDate.getHours()) + ":" 
+                    + (pubDate.getMinutes() < 10 ? "0"+pubDate.getMinutes() : pubDate.getMinutes()) + ":"
+                    + (pubDate.getSeconds() < 10 ? "0"+pubDate.getSeconds() : pubDate.getSeconds());
+
+		rss+="<pubDate><![CDATA["+formattedDate+"]]></pubDate>";
+		var md = atob(data[i].content);
+		marked(md,function(err, content){
+				rss+="<description><![CDATA["+content +"]]></description>";
+		});
+		rss+="</item>"
+		
+	}
+	rss+="</channel>";
+	rss+="</rss>";
+	var rssfeed=btoa(rss);
+	$("#rssFeed").attr("href", "data:application/rss+xml;charset=utf-8;base64,"+rssfeed);
+	$("#rssFeed").attr("download", rssFile);
+
+
+
 
 }
 
@@ -160,3 +199,20 @@ $("#delete").click(function(){
 window.onbeforeunload = function(){
   return 'Are you sure you want to leave?';
 };
+
+///RSS stuff
+var rssdomain="http://www.meshedsites.com/blog/";
+var rssHeader='<?xml version="1.0" encoding="utf-8"?> \r\n\
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">  \
+<channel>  \
+<title>' + title + '</title> \
+<link>' +rssdomain+ '</link> \
+<description></description> \
+<image> \
+  <title>' + title + '</title> \
+  <url>https://www.meshedsites.com/' + logo_img +'</url> \
+  <link>'+rssdomain+'</link> \
+</image>';
+
+
+

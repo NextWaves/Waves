@@ -3,6 +3,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title id="blog_title"></title>
+		<link rel="stylesheet" type="text/css" href="/blog/blog.css">
+		<script src="config.js"></script>
+
 	</head>
 	<body>
 		<center>
@@ -19,14 +22,26 @@
 			<div class="wrapper">
 
 				<div class="sidebar">
+					
 					<div class="sideWidget">
 						<h2>Contact Me</h2>
-						<a href="" id="contact"></a>
+						<a href="" id="contact"></a><br><br>
 					</div>
 					<div class="spacer"></div>
 					<div class="sideWidget">
 						<h2>Archive</h2>
+						<div id="rss" class="rss" onClick="document.location=rssFile"></div>
 						<div id="archive"></div>
+					</div>
+					<div class="spacer"></div>
+					<div class="sideWidget">
+						<h2>Links</h2>
+						<ul>
+							<li><a href="https://www.meshedsites.com">MeshedSites HOME</a></li>
+							<li><a href="http://github.com/NextWaves/Waves">Waves</a></li>
+							<li><a href="https://www.meshedsites.com/xttp.xpi">XTTP</a></li>
+						</ul>
+						
 					</div>
 					<div class="spacer"></div>
 					<div class="sideWidget">
@@ -47,23 +62,14 @@
 		<div id="scripts"></div>
 		<div id="update"></div>
 		<script>
-			//Common settings for the blog
-			var title="Waves Blog";
-			var header_title="Waves Blog";
-			var contact="bluewires@riseup.net";
-			var domain="http://www.meshedsites.com/waves/";
-			//may want to change this to prevent accidentally overwiting another database if you run multitple instances
-			var databaseFile="database.js";
-			var logo_img=domain+"/logo.png";
-
-
-
 
 			//Do not edit any of this javascript unless you know what your doing.
+			if(rss == false){
+				document.getElementById("rss").style="display:none";
+			}
 			append('head', '<link rel="stylesheet" type="text/css" href="'+domain+'/blog.css">');
 			//thanks to jQuery4u for the following code:
 			// http://www.jquery4u.com/javascript/dynamically-load-jquery-library-javascript/
-			edit=false;
 			(function () {
 
 			    function loadScript(url, callback) {
@@ -91,9 +97,10 @@
 			    loadScript(domain+"/jquery.js", function () {
 			    	$("#logo").click(function(){
 						window.location=domain+"/index.html";
-					});			    	
+					});
 			    	loadScript(domain+"/marked.js", function () {
 				    	loadScript(domain+"/" + databaseFile, function () {
+				    		edit=false;
 				    		loadScript(domain+"/blog.js", function () {
 			    				$("#spinner").hide();
 		  						$("#all_content").show();

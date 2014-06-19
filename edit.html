@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title id="blog_title"></title>
+		<script src="config.js"></script>
 		
 	</head>
 	<body>
@@ -27,11 +28,13 @@
 						<input id="update" type="button" value="Update Entry" style="display:none"/><br>
 						<input type="button" value="Generate" onClick="generate()" /><br>
 						<a href="" id="download" download="database.js">Download it</a>
+						<a href="" id="rssFeed" download="msites.rss">Download RSS</a>
 					</div>
 					<div class="spacer"></div>
 					<div class="sideWidget">
 						<h2>Contact Me</h2>
-						<a href="" id="contact"></a>
+						<a href="" id="contact"></a><br>
+						<a href="https://www.meshedsites.com">MeshedSites HOME</a>
 					</div>
 					<div class="spacer"></div>
 					<div class="sideWidget">
@@ -45,11 +48,6 @@
 						<input type="button" id="delete" value="delete" name="delete"/>
 					</div>
 					<div class="spacer"></div>
-					<div class="sideWidget">
-						<div class="powerWrapper" onClick="window.location.href='http://github.com/NextWaves/Waves'">
-							Powered by <div class="power" >
-						</div></div>
-					</div>
 				</div>
 
 
@@ -70,20 +68,11 @@
 		<div id="scripts"></div>
 
 		<script>
-			//Common settings for the blog
-			var title="Waves Blog";
-			var header_title="Waves Blog";
-			var contact="bluewires@riseup.net";
-			var domain="http://www.meshedsites.com/waves/";
-			//may want to change this to prevent accidentally overwiting another database if you run multitple instances
-			var databaseFile="database.js";
-			var logo_img=domain+"/logo.png";
-
-
-
-
 
 			//Do not edit any of this javascript unless you know what your doing.
+			if(rss == false){
+				document.getElementById("rssFeed").style="display:none";
+			}
 			append('head', '<link rel="stylesheet" type="text/css" href="'+domain+'/blog.css">');
 			//thanks to jQuery4u for the following code:
 			// http://www.jquery4u.com/javascript/dynamically-load-jquery-library-javascript/
@@ -113,10 +102,7 @@
 			    }
 
 			    loadScript(domain+"/jquery.js", function () {
-			    	$("#logo").click(function(){
-						window.location=domain+"/index.html";
-					});
-					loadScript(domain+"/marked.js", function () {
+			    	loadScript(domain+"/marked.js", function () {
 				    	loadScript(domain+"/" + databaseFile, function () {
 				    		loadScript(domain+"/blog.js", function () {
 				    			loadScript(domain+"/edit.js", function () {

@@ -10,6 +10,11 @@ For more information on XTTP and BitTorrent Sync integration vist https://www.me
 A working example can be found below:
 https://www.meshedsites.com/blog/index.html
 
+Configuration
+====
+* Open config.js to set various parameters like blog title, contact information, and RSS
+* Once deployed to a web server, meshedsite, or localfile system, open edit.html. Here you can create blog entries using the markdown syntax, save them, edit previous entries, or delete old entries. 
+* Clicking the Generate button on the edit page generates a new json database and rss files that can be saved in the root of your blog. 
 
 Intro to MeshedSites
 =====
